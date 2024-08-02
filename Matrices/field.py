@@ -9,7 +9,7 @@ class Field:
             self.g = self.schwarzschildMetric()
         self.christoffel = self.christoffelCalc()
         self.riemann = self.riemannCalc()
-     
+        self.ricci = self.ricciCalc()
     
     def schwarzschildMetric(self):
         g_tt = -(1 - 2 * self.M/self.r)
@@ -64,7 +64,7 @@ class Field:
                         sum_term = 0
                         for lam in range(4):
                             sum_term += self.christoffel[rho,mu,lam] * self.christoffel[lam,nu,o] - self.christoffel[rho,nu,lam] * self.christoffel[lam,mu,o]
-                        riemann[rho,o,mu,nu] = sp.diff(self.christoffel[rho,nu,o],coords[mu]) - sp.diff(self.christoffel[rho,mu,o],coords[nu]) + sum_term
+                        riemann[rho,o,mu,nu] = sp.simplify( sp.diff(self.christoffel[rho,nu,o],coords[mu]) - sp.diff(self.christoffel[rho,mu,o],coords[nu]) + sum_term)
                         
         return riemann
     
@@ -77,3 +77,21 @@ class Field:
                     for nu in range(4):
                         if self.riemann[rho,o,mu,nu] != 0:
                             print(f"R^{map_symb[rho]}_{map_symb[o]}{map_symb[mu]}{map_symb[nu]} = ", self.riemann[rho, o, mu, nu])
+                            
+                            
+    def ricciCalc(self):
+        '''R_μv = R^λ_μλv'''
+        ricci = sp.MutableDenseNDimArray.zeros(4, 4)
+        
+        for mu in range(4):
+            for nu in range(4):
+                ricci[mu,nu] = sum([self.riemann[lam,mu,lam,nu] for lam in range(4)])
+        return ricci
+    
+    def showRicci(self):
+        map_symb = {0: 't', 1: 'r', 2: 'θ', 3: 'φ'}
+        
+        for mu in range(4):
+            for nu in range(4):
+                if self.ricci[mu,nu] != 0:
+                    print(f"R_{map_symb[mu]}{map_symb[nu]} = ", self.ricci[mu, nu])

@@ -2,6 +2,8 @@ from field import Field
 
 f= Field()
 
-f.showChristoffel()
+# f.showChristoffel()
 
 f.showRiemann()
+
+# f.showRicci()
