@@ -1,5 +1,5 @@
 '''Somehow draw a grid'''
-'''Ideas: Pygame, Matplotlib, taichi lang'''
+# *Problem : Using lines which would be hard to modify when the grid curves
 import math
 import pygame as pg 
 

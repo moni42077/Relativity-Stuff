@@ -1,6 +1,6 @@
 import taichi as ti
 import numpy as np
-
+# *Problem : Using lines which would be hard to modify when the grid curves
 ti.init(arch=ti.gpu)
 
 gui = ti.GUI('Grid', res=(800, 800))
