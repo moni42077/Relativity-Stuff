@@ -12,6 +12,7 @@ class Field:
         self.ricci = self.ricciCalc()
     
     def schwarzschildMetric(self):
+        '''Uncharged Non-rotating black hole'''
         g_tt = -(1 - 2 * self.M/self.r)
         g_rr = 1/(1-2*self.M/self.r)
         g_theta_theta = self.r**2
@@ -22,7 +23,28 @@ class Field:
                     [0, 0, g_theta_theta, 0],
                     [0, 0, 0, g_phi_phi]])
         
-            
+    def kerrMetric(self, j):
+        '''Uncharged Rotating black hole (boyer lindquist coord)'''
+        a = j/self.M
+        sigma = self.r**2 + a**2 * sp.cos(self.theta)**2
+        delta = self.r**2 - 2* self.M * self.r + a**2
+        g_tt = -(1 - 2 * self.M*self.r/sigma)
+        g_rr = sigma/delta
+        g_theta_theta = (self.r**2 +a**2 + 2*self.M*self.r*a**2/sigma)*sp.sin(self.theta)**2
+        g_phi_phi = 4*self.M*self.r*sp.sin(self.theta)**2/sigma
+        
+        return sp.Matrix([[g_tt, 0, 0, 0],
+                    [0, g_rr, 0, 0],
+                    [0, 0, g_theta_theta, 0],
+                    [0, 0, 0, g_phi_phi]])
+    
+    def reissnerNordstromMetric(self):
+        '''Charged Non-rotating black hole'''
+        return 0
+    
+    def kerrNewmanMetric(self,j,q):
+        '''Charged Rotating black hole'''
+        return 0
         
     def christoffelCalc(self):
         '''Г^λ_μv = 1/2 * d^{λσ} * (d_μ * g_vσ+ d_v * g_σμ - d_σ * g_μv)
