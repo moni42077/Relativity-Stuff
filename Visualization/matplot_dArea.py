@@ -13,7 +13,7 @@ y       +-------------------+
         
         will become 
         
-                      dx_new
+            x+x_offset     x+x_offset+dx_new
 y+y_offset       +-------------+
                 /             /
         dy_new /             / dy_new
@@ -32,6 +32,7 @@ WIDTH = 10
 HEIGHT = 10 
 
 def metric(x,y):
+    return np.array([[0.2,0],[0,5]])
     return np.array([[np.sin(y)**2,0],[0,1]])
 
 for x in np.round(np.linspace(0, WIDTH, int(WIDTH/dx)+1),precision):
@@ -63,6 +64,7 @@ for x in np.round(np.linspace(0, WIDTH, int(WIDTH/dx)+1),precision):
         
         x_offset = cos_theta * dy_new
         y_offset = sin_theta * dy_new
+        
         axs[1].plot([x,x+dx_new],[y,y],color = 'blue')
         axs[1].plot([x,x+x_offset],[y,y+y_offset],color = 'blue')
         axs[1].plot([x+dx_new,x+dx_new + x_offset], [y,y+y_offset],color = 'blue')
