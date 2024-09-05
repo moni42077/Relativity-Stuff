@@ -1,5 +1,5 @@
-import numpy as np 
 import matplotlib.pyplot as plt
+import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
 x = np.linspace(0, 10, 10)
@@ -7,16 +7,13 @@ y = np.linspace(0, 10, 10)
 
 X, Y = np.meshgrid(x, y)
 
-#metric in 2d
-def metric(x,y):
-    return np.array([[np.sin(y)**2,0],[0,1]])
-
-
-
+# metric in 2d
+def metric(x, y):
+    return np.array([[np.sin(y) ** 2, 0], [0, 1]])
 
 
 fig = plt.figure()
-ax = fig.add_subplot(111, projection = '3d')
+ax = fig.add_subplot(111, projection="3d")
 ax.plot_surface(X, Y, np.zeros_like(X))
 
 
