@@ -7,6 +7,11 @@ class Field:
         
         if metric is None: 
             self.g = self.schwarzschildMetric()
+        elif metric == 'Kerr':
+            j  = sp.symbols('j')
+            self.g = self.kerrMetric(j)
+            
+
         self.christoffel = self.christoffelCalc()
         self.riemann = self.riemannCalc()
         self.ricci = self.ricciCalc()
