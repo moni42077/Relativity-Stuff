@@ -58,11 +58,15 @@ class Field:
 
     def christoffelCalc(self):
         """Г^λ_μv = 1/2 * d^{λσ} * (d_μ * g_vσ+ d_v * g_σμ - d_σ * g_μv)
-        from Sean Carroll's Spacetime and Geometry"""
+        from Sean Carroll's Spacetime and Geometry
+        ------------------------------
+        returns sp.MutableDenseNDimArray (4,4,4) 
+        where f.christoffelCalc()[0,0,1] = Г^0_01 = Г^t_tr 
+        """
         coords = [self.t, self.r, self.theta, self.phi]
         christoffel = sp.MutableDenseNDimArray.zeros(
             4, 4, 4
-        )  # same as np.zeros((4,4,4))
+        )  # same as np.zeros((4,4,4)) 
         g_inv = self.g.inv()
 
         for lam in range(4):
