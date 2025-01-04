@@ -7,6 +7,11 @@ class Field:
 
         if metric is None:
             self.g = self.schwarzschildMetric()
+        elif metric == 'Kerr':
+            j  = sp.symbols('j')
+            self.g = self.kerrMetric(j)
+            
+
         self.christoffel = self.christoffelCalc()
         self.riemann = self.riemannCalc()
         self.ricci = self.ricciCalc()
@@ -154,5 +159,9 @@ class Field:
 
         for mu in range(4):
             for nu in range(4):
+<<<<<<< HEAD
+                if self.ricci[mu,nu] != 0:
+=======
                 if self.ricci[mu, nu] != 0:
+>>>>>>> f21509c10105279a4ca4f99c23ee146de5cece50
                     print(f"R_{map_symb[mu]}{map_symb[nu]} = ", self.ricci[mu, nu])
